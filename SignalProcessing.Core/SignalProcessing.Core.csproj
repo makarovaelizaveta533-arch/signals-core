@@ -44,6 +44,8 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingleChannelSignal.cs" />
+    <Compile Include="SingleChannelSignalReader.cs" />
+    <Compile Include="SingleChannelSignalWriter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
