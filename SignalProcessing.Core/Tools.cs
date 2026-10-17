@@ -1,10 +1,10 @@
 ﻿using System; // Math.Sin, Math.PI, Array.Copy, Random — математика и массивы
 using System.Collections.Generic; // List<> — список
 
-namespace SignalParser // та же «папка имён», что и у остальных файлов проекта
+namespace SignalProcessing.Core // та же «папка имён», что и у остальных файлов проекта
 {
     // Tools = набор функций-генераторов. static методы = вызываем без new: Tools.Sin(...)
-    internal class Tools
+    public class Tools
     {
         // Line = сделать прямую y = k * t + b
         // len = длина в секундах, freq = точек в секунду, k = наклон, b = сдвиг

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic; // List<> = список, который растёт сам
 using System.IO; // StreamReader = читать текстовый файл построчно
 
-namespace SignalParser
+namespace SignalProcessing.Core
 {
     // SingleChannelSignalReader = читалка сигнала из csv-файла
-    internal class SingleChannelSignalReader
+    public class SingleChannelSignalReader
     {
         // static = можно вызвать без new: SingleChannelSignalReader.SignalReader(путь)
         // string filePath = путь к файлу на диске

@@ -1,9 +1,9 @@
 ﻿using System.IO; // StreamWriter = писать текстовый файл построчно
 
-namespace SignalParser
+namespace SignalProcessing.Core
 {
     // SingleChannelSignalWriter = записывалка сигнала в csv-файл
-    internal class SingleChannelSignalWriter
+    public class SingleChannelSignalWriter
     {
         // static = вызов без new. obj = сигнал. filepath = куда сохранить
         static public void SignalWriter(SingleChannelSignal obj, string filepath)

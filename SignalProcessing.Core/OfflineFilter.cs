@@ -1,10 +1,10 @@
 ﻿using System; // Array.Copy — копирование массивов
 
-namespace SignalParser
+namespace SignalProcessing.Core
 {
     // OfflineFilter = ОФЛАЙН сглаживание (весь сигнал уже есть, можно смотреть влево и вправо)
     // static class = все методы static, объект new создавать не надо: OfflineFilter.Filter(...)
-    internal static class OfflineFilter
+    public static class OfflineFilter
     {
         // Filter = сгладить массив. data = вход. windowSize = сколько соседних точек усреднять
         public static float[] Filter(float[] data, int windowSize)

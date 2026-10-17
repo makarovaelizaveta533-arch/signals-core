@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic; // Queue<> = очередь (первым пришёл — первым ушёл)
 
-namespace SignalParser
+namespace SignalProcessing.Core
 {
     // OnlineFilter = ОНЛАЙН сглаживание (данные приходят кусками, как «вживую»)
     // Смотрит только в ПРОШЛОЕ. Между вызовами Filter помнит старые точки в буфере
-    internal class OnlineFilter
+    public class OnlineFilter
     {
         // private = видно только внутри этого класса
         private int windowSize;      // размер окна усреднения

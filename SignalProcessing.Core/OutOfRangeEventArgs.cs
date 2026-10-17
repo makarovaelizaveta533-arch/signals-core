@@ -1,10 +1,10 @@
 ﻿using System; // EventArgs = стандартный базовый класс для данных события
 
-namespace SignalParser
+namespace SignalProcessing.Core
 {
     // OutOfRangeEventArgs = данные, которые летят вместе с событием «нашли зашкал»
     // : EventArgs = наследуемся от стандартного класса событий C#
-    internal class OutOfRangeEventArgs : EventArgs
+    public class OutOfRangeEventArgs : EventArgs
     {
         // StartIndex = номер первой плохой точки в массиве. get = только читать
         public int StartIndex { get; }

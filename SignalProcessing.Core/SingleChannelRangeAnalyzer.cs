@@ -1,10 +1,10 @@
 ﻿using System; // EventHandler, EventArgs — система событий C#
 
-namespace SignalParser
+namespace SignalProcessing.Core
 {
     // SingleChannelRangeAnalyzer = искатель «зашкалов»
     // Зашкал = кусок, где значение < min ИЛИ значение > max
-    internal class SingleChannelRangeAnalyzer
+    public class SingleChannelRangeAnalyzer
     {
         private float min;       // нижняя граница нормы
         private float max;       // верхняя граница нормы

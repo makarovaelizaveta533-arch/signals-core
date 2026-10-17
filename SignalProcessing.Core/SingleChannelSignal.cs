@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SignalParser // общая «папка имён» проекта
+namespace SignalProcessing.Core // общая «папка имён» проекта
 {
     // SingleChannelSignal = один сигнал целиком (частота + значения)
-    internal class SingleChannelSignal
+    public class SingleChannelSignal
     {
         // Конструктор. Вызывается при: new SingleChannelSignal(частота, массив)
         // float freq = частота (сколько точек в секунду)
