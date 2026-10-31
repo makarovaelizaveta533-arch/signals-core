@@ -15,7 +15,11 @@ namespace SignalProcessing.Core.Tests
             Assert.NotNull(actual);
             Assert.Equal(expected.Length, actual.Length);
             for (int i = 0; i < expected.Length; i++)
-                Assert.Equal(expected[i], actual[i], tolerance);
+            {
+                Assert.True(
+                    Math.Abs(expected[i] - actual[i]) <= tolerance, 
+                    $"Расхождение на индексе {i}, ожидалось {expected[i]}, получено {actual[i]}, докустимо {tolerance}')");       
+            }    
         }
     }
 
