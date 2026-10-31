@@ -83,71 +83,71 @@ namespace SignalProcessing.Core // та же «папка имён», что и 
             // Вернуть сигнал-шум
             return new SingleChannelSignal(freq, y);
         }
+       
+        //// Summ = сложить все сигналы ПОТОЧЕЧНО (в одной точке времени)
+        //public static SingleChannelSignal Summ(List<SingleChannelSignal> signals)
+        //{
+        //    // Частоту берём у первого сигнала в списке (signals[0])
+        //    float freq = signals[0].Freq;
 
-        // Summ = сложить все сигналы ПОТОЧЕЧНО (в одной точке времени)
-        public static SingleChannelSignal Summ(List<SingleChannelSignal> signals)
-        {
-            // Частоту берём у первого сигнала в списке (signals[0])
-            float freq = signals[0].Freq;
+        //    // minLen = длина самого короткого сигнала (чтобы не вылезти за край массива)
+        //    int minLen = signals[0].Value.Length;
 
-            // minLen = длина самого короткого сигнала (чтобы не вылезти за край массива)
-            int minLen = signals[0].Value.Length;
+        //    // Цикл по остальным сигналам: если короче — запоминаем его длину
+        //    for (int i = 1; i < signals.Count; i++)
+        //        if (signals[i].Value.Length < minLen)
+        //            minLen = signals[i].Value.Length;
 
-            // Цикл по остальным сигналам: если короче — запоминаем его длину
-            for (int i = 1; i < signals.Count; i++)
-                if (signals[i].Value.Length < minLen)
-                    minLen = signals[i].Value.Length;
+        //    // Массив результата
+        //    float[] result = new float[minLen];
 
-            // Массив результата
-            float[] result = new float[minLen];
+        //    // Внешний цикл: по каждой точке времени
+        //    for (int i = 0; i < minLen; i++)
+        //    {
+        //        // sum = накопитель суммы в этой точке
+        //        float sum = 0;
 
-            // Внешний цикл: по каждой точке времени
-            for (int i = 0; i < minLen; i++)
-            {
-                // sum = накопитель суммы в этой точке
-                float sum = 0;
+        //        // Внутренний цикл: по каждому сигналу
+        //        for (int j = 0; j < signals.Count; j++)
+        //            // Прибавить значение j-го сигнала в точке i
+        //            sum += signals[j].Value[i];
 
-                // Внутренний цикл: по каждому сигналу
-                for (int j = 0; j < signals.Count; j++)
-                    // Прибавить значение j-го сигнала в точке i
-                    sum += signals[j].Value[i];
+        //        // Записать сумму в результат
+        //        result[i] = sum;
+        //    }
 
-                // Записать сумму в результат
-                result[i] = sum;
-            }
+        //    // Вернуть суммарный сигнал
+        //    return new SingleChannelSignal(freq, result);
+        //}
 
-            // Вернуть суммарный сигнал
-            return new SingleChannelSignal(freq, result);
-        }
+        //// Skley = склеить сигналы подряд (не складывать значения, а пристыковать массивы)
+        //public static SingleChannelSignal Skley(List<SingleChannelSignal> signals)
+        //{
+        //    // Частота от первого
+        //    float freq = signals[0].Freq;
 
-        // Skley = склеить сигналы подряд (не складывать значения, а пристыковать массивы)
-        public static SingleChannelSignal Skley(List<SingleChannelSignal> signals)
-        {
-            // Частота от первого
-            float freq = signals[0].Freq;
+        //    // Считаем общую длину всех кусков
+        //    int totalLen = 0;
+        //    for (int i = 0; i < signals.Count; i++)
+        //        totalLen += signals[i].Value.Length; // += значит прибавить к totalLen
 
-            // Считаем общую длину всех кусков
-            int totalLen = 0;
-            for (int i = 0; i < signals.Count; i++)
-                totalLen += signals[i].Value.Length; // += значит прибавить к totalLen
+        //    // Большой массив на всех
+        //    float[] result = new float[totalLen];
 
-            // Большой массив на всех
-            float[] result = new float[totalLen];
+        //    // pos = куда сейчас пишем в result
+        //    int pos = 0;
 
-            // pos = куда сейчас пишем в result
-            int pos = 0;
+        //    // Для каждого сигнала копируем его кусок в result
+        //    for (int i = 0; i < signals.Count; i++)
+        //    {
+        //        // Array.Copy(откуда, с_какого_индекса, куда, с_какой_позиции, сколько)
+        //        Array.Copy(signals[i].Value, 0, result, pos, signals[i].Value.Length);
+        //        // Сдвинуть позицию на длину только что скопированного куска
+        //        pos += signals[i].Value.Length;
+        //    }
 
-            // Для каждого сигнала копируем его кусок в result
-            for (int i = 0; i < signals.Count; i++)
-            {
-                // Array.Copy(откуда, с_какого_индекса, куда, с_какой_позиции, сколько)
-                Array.Copy(signals[i].Value, 0, result, pos, signals[i].Value.Length);
-                // Сдвинуть позицию на длину только что скопированного куска
-                pos += signals[i].Value.Length;
-            }
-
-            // Вернуть склеенный сигнал
-            return new SingleChannelSignal(freq, result);
-        }
+        //    // Вернуть склеенный сигнал
+        //    return new SingleChannelSignal(freq, result);
+        //}
     }
 }
