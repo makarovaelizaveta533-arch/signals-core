@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic; // Queue<> = очередь (первым пришёл — первым ушёл)
+﻿using System;
+using System.Collections.Generic; // Queue<> = очередь (первым пришёл — первым ушёл)
 
 namespace SignalProcessing.Core
 {
@@ -9,22 +10,32 @@ namespace SignalProcessing.Core
         // private = видно только внутри этого класса
         private int windowSize;      // размер окна усреднения
         private Queue<float> buffer; // буфер = очередь последних точек
+        private float sum;
 
         // Конструктор: new OnlineFilter(размер_окна)
         public OnlineFilter(int windowSize)
         {
+            if (windowSize <= 0)
+                throw new ArgumentOutOfRangeException(nameof(windowSize), "Размер окна должен быть положительным");
             // this.windowSize = поле класса. windowSize без this = параметр конструктора
             this.windowSize = windowSize;
             // Создать пустую очередь
             buffer = new Queue<float>();
+            sum = 0;
         }
 
         // Filter = принять кусок data, вернуть сглаженный кусок той же длины
         public float[] Filter(float[] data)
         {
+           
             // Массив под ответ
             float[] result = new float[data.Length];
-
+            if (buffer.Count == 0)
+            {
+                for (int j = 0; j < windowSize - 1; j++)
+                    buffer.Enqueue(data[0]);
+            }
+            
             // Цикл по каждой точке куска
             for (int i = 0; i < data.Length; i++)
             {
@@ -37,7 +48,7 @@ namespace SignalProcessing.Core
                     buffer.Dequeue();
 
                 // sum = сумма всего, что сейчас лежит в буфере
-                float sum = 0;
+                sum = 0;
 
                 // foreach = пройтись по каждому числу v в очереди buffer
                 foreach (float v in buffer)

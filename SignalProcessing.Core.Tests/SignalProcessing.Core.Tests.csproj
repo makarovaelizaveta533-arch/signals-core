@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="AssertSignal.cs" />
     <Compile Include="OfflineFilterTests.cs" />
+    <Compile Include="OnlineFilterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingleChannelSignalTests.cs" />
   </ItemGroup>
