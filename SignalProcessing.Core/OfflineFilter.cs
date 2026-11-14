@@ -9,6 +9,14 @@ namespace SignalProcessing.Core
         // Filter = сгладить массив. data = вход. windowSize = сколько соседних точек усреднять
         public static float[] Filter(float[] data, int windowSize)
         {
+            if (data == null)
+                throw new ArgumentNullException(nameof(data));
+
+            if (windowSize <= 0 || windowSize % 2 == 0)
+                throw new ArgumentOutOfRangeException(nameof(windowSize));
+
+            if (data.Length == 0)
+                return new float[0];
             // M = сколько точек СЛЕВА от центра (и столько же СПРАВА)
             // Пример: окно 5 → M=2 → берём [i-2, i-1, i, i+1, i+2]
             int M = (windowSize - 1) / 2;

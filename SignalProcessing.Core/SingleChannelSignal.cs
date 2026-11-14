@@ -14,6 +14,12 @@ namespace SignalProcessing.Core // общая «папка имён» проек
         // float[] value = массив значений сигнала
         public SingleChannelSignal(float freq, float[] value)
         {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
+
+            if (freq <= 0)
+                throw new ArgumentOutOfRangeException(nameof(freq), "Частота квантования должна быть положительна!!!");
+
             Freq = freq;   // сохранить частоту внутрь объекта
             Value = value; // сохранить массив внутрь объекта
         }

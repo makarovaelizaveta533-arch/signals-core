@@ -83,6 +83,7 @@
     <Compile Include="AssertSignal.cs" />
     <Compile Include="OfflineFilterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleChannelSignalTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
