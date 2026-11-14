@@ -1,4 +1,7 @@
-﻿using System.IO; // StreamWriter = писать текстовый файл построчно
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 
 namespace SignalProcessing.Core
 {
@@ -12,13 +15,13 @@ namespace SignalProcessing.Core
             using (StreamWriter writer = new StreamWriter(filepath))
             {
                 // WriteLine = записать строку и перейти на новую. Сначала частота
-                writer.WriteLine(obj.Freq);
+                writer.WriteLine(obj.Freq.ToString(CultureInfo.InstalledUICulture));
 
                 // foreach = для каждого числа el в массиве Value
                 foreach (float el in obj.Value)
                 {
                     // Записать одно значение сигнала на отдельную строку
-                    writer.WriteLine(el);
+                    writer.WriteLine(el.ToString(CultureInfo.InstalledUICulture));
                 }
             }
             // Тут файл уже закрыт

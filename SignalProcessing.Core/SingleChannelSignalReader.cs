@@ -1,48 +1,52 @@
-﻿using System.Collections.Generic; // List<> = список, который растёт сам
-using System.IO; // StreamReader = читать текстовый файл построчно
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 
 namespace SignalProcessing.Core
 {
-    // SingleChannelSignalReader = читалка сигнала из csv-файла
     public class SingleChannelSignalReader
     {
-        // static = можно вызвать без new: SingleChannelSignalReader.SignalReader(путь)
-        // string filePath = путь к файлу на диске
         static public SingleChannelSignal SignalReader(string filePath)
         {
-            // using = открыли файл; когда блок закончится — файл закроется сам
-            // StreamReader = читатель текста
             using (StreamReader reader = new StreamReader(filePath))
             {
-                // ReadLine = прочитать ОДНУ строку. float.Parse = текст → число
-                // Первая строка файла у нас = частота
-                float freq = float.Parse(reader.ReadLine());
+                // Первая строка = частота
+                string freqLine = reader.ReadLine();
 
-                // List = список чисел сигнала (длина заранее неизвестна)
-                List<float> Signal = new List<float>();
+                // Пустой файл: строки с частотой нет
+                if (freqLine == null)
+                    throw new InvalidDataException("Файл пуст: отсутствует частота.");
 
-                // while(true) = крутиться вечно, пока не сделаем break
+                // TryParse не бросает исключение, а возвращает false при ошибке
+                if (!float.TryParse(freqLine, NumberStyles.Float, CultureInfo.InvariantCulture, out float freq))
+                    throw new InvalidDataException($"Некорректная частота: '{freqLine}'.");
+
+                if (freq <= 0)
+                    throw new InvalidDataException("Частота должна быть больше нуля.");
+
+                // Остальные строки = отсчёты сигнала
+                List<float> signal = new List<float>();
+                int lineNumber = 1;
+
                 while (true)
                 {
-                    // Следующая строка файла
                     string line = reader.ReadLine();
+                    lineNumber++;
 
-                    // null значит «файл закончился» → выходим из цикла
+                    // null значит, что файл закончился
                     if (line == null)
                         break;
 
-                    // Текст строки → число float, добавить в список
-                    Signal.Add(float.Parse(line));
+                    if (!float.TryParse(line, NumberStyles.Float, CultureInfo.InvariantCulture, out float value))
+                        throw new InvalidDataException($"Некорректное значение в строке {lineNumber}: '{line}'.");
+
+                    signal.Add(value);
                 }
 
-                // ToArray = превратить List в обычный массив float[]
-                float[] arrSignal = Signal.ToArray();
+                float[] arrSignal = signal.ToArray();
 
-                // Упаковать частоту + массив в объект сигнала
-                SingleChannelSignal data = new SingleChannelSignal(freq, arrSignal);
-
-                // Вернуть сигнал наружу
-                return data;
+                return new SingleChannelSignal(freq, arrSignal);
             }
         }
     }
